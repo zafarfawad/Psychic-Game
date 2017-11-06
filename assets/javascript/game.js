@@ -2,39 +2,45 @@ var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l
     "u", "v", "w", "x", "y", "z"
 ];
 
-// var userGuess = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
-// "u", "v", "w", "x", "y", "z"];
 
 var wins = 0;
 var losses = 0;
 var guessesLeft = 10;
+var userValue = [];
+
+function guess(existingChoices) {
+    return existingChoices[Math.floor(Math.random() * existingChoices.length)];
+}
+
+function choice(userGuess) {
+    userGuess = event.key;
+    return userGuess;
+}
 
 document.onkeyup = function (event) {
 
-    var userGuess = event.key;
+    var userGuess = choice(userGuess);
+    // var userGuess = event.key;
+    var computerGuess = guess(computerChoices);
 
-    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-
-
+    userValue.push(userGuess);
 
     if (userGuess === computerGuess) {
         wins++;
-    } else {
-        losses++;
+        userValue = [];
+        guessesLeft = 10;
+    }
+
+    else {
         guessesLeft--;
     }
 
-
-
-    var userValue = [];
-
-    userValue.push(userGuess);
-    console.log(userValue);
-
     if (guessesLeft === 0) {
+        losses++;
         guessesLeft = 10;
-        userValue = "";
+        userValue = [];
     }
+
 
     var gameResults =
 
@@ -46,11 +52,6 @@ document.onkeyup = function (event) {
 
 
     document.getElementById("game").innerHTML = gameResults;
-
-    // losses.innerHTML  = losses;
-    //  document.getElementById("wins").innerHML = losses;
-
-    //  document.getElementById("your-guesses-so-far").innerHTML = losses;
 
 
 };
