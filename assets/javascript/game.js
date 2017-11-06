@@ -12,18 +12,23 @@ function guess(existingChoices) {
     return existingChoices[Math.floor(Math.random() * existingChoices.length)];
 }
 
+
 function choice(userGuess) {
     userGuess = event.key;
     return userGuess;
 }
 
 document.onkeyup = function (event) {
+    var computerGuess = guess(computerChoices);
+    console.log(computerGuess);
 
     var userGuess = choice(userGuess);
     // var userGuess = event.key;
-    var computerGuess = guess(computerChoices);
+
 
     userValue.push(userGuess);
+
+
 
     if (userGuess === computerGuess) {
         wins++;
@@ -35,7 +40,7 @@ document.onkeyup = function (event) {
         guessesLeft--;
     }
 
-    if (guessesLeft === 0) {
+    if (guessesLeft < 0) {
         losses++;
         guessesLeft = 10;
         userValue = [];
